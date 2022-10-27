@@ -15,8 +15,8 @@ GINKGO=$(GOBIN)/ginkgo
 
 SOURCES := $(shell find . -name '*.go')
 
-IMAGE_TAG := dev
-TRIVY_OPERATOR_IMAGE := aquasecurity/trivy-operator:$(IMAGE_TAG)
+IMAGE_TAG := 0.4.2
+TRIVY_OPERATOR_IMAGE := drdkorg/trivy-operator:$(IMAGE_TAG)
 TRIVY_OPERATOR_IMAGE_UBI8 := aquasecurity/trivy-operator:$(IMAGE_TAG)-ubi8
 
 MKDOCS_IMAGE := aquasec/mkdocs-material:trivy-operator
@@ -33,7 +33,7 @@ build: build-trivy-operator
 
 ## Builds the trivy-operator binary
 build-trivy-operator: $(SOURCES)
-	CGO_ENABLED=0 GOOS=linux go build -o ./bin/trivy-operator ./cmd/trivy-operator/main.go
+	GOARCH=amd64 CGO_ENABLED=0 GOOS=linux go build -o ./bin/trivy-operator ./cmd/trivy-operator/main.go
 
 .PHONY: get-ginkgo
 ## Installs Ginkgo CLI

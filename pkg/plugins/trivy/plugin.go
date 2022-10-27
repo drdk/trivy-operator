@@ -725,7 +725,7 @@ func (p *plugin) getPodSpecForStandaloneMode(ctx trivyoperator.PluginContext, co
 				"/bin/sh",
 			},
 			Args: []string{
-				"-c", fmt.Sprintf(`trivy image '%s' --security-checks %s --cache-dir /tmp/trivy/.cache --quiet --skip-update --format json > /tmp/scan/%s &&  bzip2 -c /tmp/scan/%s | base64`, imageRef.String(), getSecurityChecks(ctx), resultFileName, resultFileName),
+				"-c", fmt.Sprintf(`trivy image '%s' --security-checks %s --cache-dir /tmp/trivy/.cache --quiet --skip-update --format json > /tmp/scan/%s && bzip2 -c /tmp/scan/%s | base64 && sleep 3`, imageRef.String(), getSecurityChecks(ctx), resultFileName, resultFileName),
 			},
 			Resources:       resourceRequirements,
 			SecurityContext: securityContext,
